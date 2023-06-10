@@ -5,7 +5,6 @@ const mongoose = require("mongoose")
 //create a restaurant
 const createARestaurant = async(req,res) =>{
     const {name,location,cuisine,image} = req.body
-    console.log(req.body)
     try{
         const restaurant = await Restaurant.create({name,location,image,cuisine})
         res.status(200).json(restaurant)
@@ -53,7 +52,7 @@ const updateARestaurant = async(req,res) =>{
     if(!restaurant){
         return res.status(404).json({error:"No Such Restaurant"})
     }
-    res.status(200).json(restaurant)
+    res.status(200).json({...restaurant._doc,...req.body})
 }
 
 module.exports = {
